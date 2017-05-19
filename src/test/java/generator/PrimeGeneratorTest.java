@@ -24,6 +24,7 @@ public class PrimeGeneratorTest {
 
     @Test
     public void easyPrimeNumberTest(){
+        assertFalse(primeGenerator.isPrime(-1));
         assertFalse(primeGenerator.isPrime(0));
         assertFalse(primeGenerator.isPrime(1));
         assertTrue(primeGenerator.isPrime(2));
@@ -39,17 +40,55 @@ public class PrimeGeneratorTest {
     }
 
     @Test
-    public void negativePrimeTest(){
-        assertFalse(primeGenerator.isPrime(-1));
-        assertTrue(primeGenerator.isPrime(-2));
-        assertTrue(primeGenerator.isPrime(-3));
-        assertFalse(primeGenerator.isPrime(-4));
-    }
-
-    @Test
     public void getFirst26Primes(){
         List<Integer> primes = primeGenerator.generate(1, 102);
         assertEquals(primes.size(), 26);
-//        assertEquals(primes.get(20), 73);
+        assertEquals(primes.get(20), new Integer(73));
+        assertEquals(primes.get(15), new Integer(53));
+        assertEquals(primes.get(9), new Integer(29));
+        assertEquals(primes.get(0), new Integer(2));
+    }
+
+    @Test
+    public void getFirst26PrimesWithNegativeRange(){
+        List<Integer> primes = primeGenerator.generate(-500, 102);
+        assertEquals(primes.size(), 26);
+        assertEquals(primes.get(20), new Integer(73));
+        assertEquals(primes.get(15), new Integer(53));
+        assertEquals(primes.get(9), new Integer(29));
+        assertEquals(primes.get(0), new Integer(2));
+    }
+
+    @Test
+    public void getPrimesWithReverseNumbers(){
+        List<Integer> primes = primeGenerator.generate(102, 1);
+        assertEquals(primes.size(), 26);
+        assertEquals(primes.get(20), new Integer(73));
+        assertEquals(primes.get(15), new Integer(53));
+        assertEquals(primes.get(9), new Integer(29));
+        assertEquals(primes.get(0), new Integer(2));
+    }
+
+    @Test
+    public void getLargePrimes(){
+        List<Integer> primes = primeGenerator.generate(7900, 7920);
+        assertEquals(primes.size(), 3);
+        assertEquals(primes.get(0), new Integer(7901));
+        assertEquals(primes.get(1), new Integer(7907));
+        assertEquals(primes.get(2), new Integer(7919));
+    }
+
+    @Test
+    public void getLotsOfPrimes(){
+        List<Integer> primes = primeGenerator.generate(2, 7920);
+        assertEquals(primes.size(), 1000);
+        assertEquals(primes.get(primes.size()-1), new Integer(7919));
+    }
+
+    @Test
+    public void getLotsOfPrimesReverse(){
+        List<Integer> primes = primeGenerator.generate(7920, 2);
+        assertEquals(primes.size(), 1000);
+        assertEquals(primes.get(primes.size()-1), new Integer(7919));
     }
 }
