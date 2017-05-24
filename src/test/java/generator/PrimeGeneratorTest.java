@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class PrimeGeneratorTest {
 
-    public PrimeGenerator primeGenerator;
+    private PrimeGenerator primeGenerator;
 
     @Before
     public void setup(){
@@ -37,6 +37,12 @@ public class PrimeGeneratorTest {
         assertFalse(primeGenerator.isPrime(7902));
         assertTrue(primeGenerator.isPrime(7907));
         assertTrue(primeGenerator.isPrime(7919));
+    }
+
+    @Test
+    public void testIsPrimeBoundaryNumbers(){
+        assertTrue(primeGenerator.isPrime(Integer.MAX_VALUE));
+        assertFalse(primeGenerator.isPrime(Integer.MIN_VALUE));
     }
 
     @Test
@@ -90,5 +96,17 @@ public class PrimeGeneratorTest {
         List<Integer> primes = primeGenerator.generate(7920, 2);
         assertEquals(primes.size(), 1000);
         assertEquals(primes.get(primes.size()-1), new Integer(7919));
+    }
+
+    @Test
+    public void testSingleNumberRangeNotPrime(){
+        List<Integer> primes = primeGenerator.generate(4, 4);
+        assertEquals(primes.size(), 0);
+    }
+
+    @Test
+    public void testSingleNumberRangePrime(){
+        assertEquals(primeGenerator.generate(2, 2).size(), 1);
+        assertEquals(primeGenerator.generate(3, 3).size(), 1);
     }
 }

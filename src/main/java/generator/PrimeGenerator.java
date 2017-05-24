@@ -39,10 +39,11 @@ public class PrimeGenerator implements PrimeNumberGenerator {
      *      a list of primes (inclusive) between the least of the two values to the greatest
      */
     public List<Integer> generate(int startingValue, int endingValue){
+        //Set the values to the min and max correctly if inverse range
         int lowVal = (startingValue < endingValue) ? startingValue : endingValue;
         int highVal = (lowVal == startingValue) ? endingValue : startingValue;
         List<Integer> primes = new LinkedList<>();
-        for(int i = lowVal; i < highVal; i++){
+        for(int i = lowVal; i <= highVal; i++){
             if(isPrime(i)){
                 primes.add(i);
             }
